@@ -1,7 +1,7 @@
 /**
  * Calendar drawing utility
  */
-import { Theme, WallpaperSettings, DEVICES } from './types';
+import { Theme, WallpaperSettings, DEVICES } from '../types';
 
 function drawRoundedRect(ctx: CanvasRenderingContext2D, x: number, y: number, w: number, h: number, r: number) {
   const radius = Math.min(r, w / 2, h / 2);

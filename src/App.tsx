@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { THEMES, WallpaperSettings, DEVICES } from './types';
 import { drawWallpaper } from './lib/drawUtils';
 
@@ -87,7 +87,7 @@ export default function App() {
     return `${baseUrl}?${params.toString()}`;
   };
 
-  const copyUrl = (e: React.MouseEvent) => {
+  const copyUrl = (e: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>) => {
     e.preventDefault();
     navigator.clipboard.writeText(getAutomationUrl());
     setCopied(true);
