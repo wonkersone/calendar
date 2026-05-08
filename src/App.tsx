@@ -173,15 +173,15 @@ export default function App() {
                     </select>
                   </div>
 
-                  <div>
-                    <label className="block text-[12px] text-[rgba(243,244,246,.52)] mb-[6px]">Размер календаря</label>
-                    <select value={settings.calendar_size} onChange={e => setSettings({...settings, calendar_size: e.target.value as any})} className="w-full p-[12px] rounded-[14px] border border-[rgba(255,255,255,.10)] bg-[rgba(0,0,0,.22)] text-[#f3f4f6] outline-none appearance-none focus:border-[rgba(124,92,255,.55)] focus:ring-4 focus:ring-[rgba(124,92,255,.12)]">
-                      <option value="standard">Стандартный</option>
-                      <option value="large">Большой</option>
-                      <option value="large_no_top">Большой без верхних виджетов</option>
-                      <option value="large_no_bottom">Большой без нижних виджетов</option>
-                    </select>
-                  </div>
+                  {settings.style === 'numbers_current_month' && (
+                    <div>
+                      <label className="block text-[12px] text-[rgba(243,244,246,.52)] mb-[6px]">Размер календаря</label>
+                      <select value={settings.calendar_size} onChange={e => setSettings({...settings, calendar_size: e.target.value as any})} className="w-full p-[12px] rounded-[14px] border border-[rgba(255,255,255,.10)] bg-[rgba(0,0,0,.22)] text-[#f3f4f6] outline-none appearance-none focus:border-[rgba(124,92,255,.55)] focus:ring-4 focus:ring-[rgba(124,92,255,.12)]">
+                        <option value="standard">Стандартный</option>
+                        <option value="large">Большой</option>
+                      </select>
+                    </div>
+                  )}
 
                   <div>
                     <label className="block text-[12px] text-[rgba(243,244,246,.52)] mb-[6px]">Выходные (только для чисел)</label>

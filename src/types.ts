@@ -5,6 +5,7 @@ export type Theme = {
   dot: string;
   past: string;
   today: string;
+  weekend: string;
   number: string;
   future: string;
 };
@@ -74,16 +75,16 @@ export const DEVICES: Record<string, Device> = {
 };
 
 export const THEMES: Record<string, Theme> = {
-  "graphite_orange": {"bg":"#151617","text":"#B8B8B8","muted":"#7A7A7A","dot":"#E6E6E6","past":"#E6E6E6","today":"#FF7A2F","number":"#D0D0D0","future":"#D0D0D0"},
-  "graphite_orange_oled": {"bg":"#000000","text":"#B8B8B8","muted":"#7A7A7A","dot":"#E6E6E6","past":"#E6E6E6","today":"#FF7A2F","number":"#D0D0D0","future":"#D0D0D0"},
-  "midnight_blue": {"bg":"#0F1720","text":"#C6D0E0","muted":"#7E8CA3","dot":"#E2E9F5","past":"#E2E9F5","today":"#4DA3FF","number":"#EDF3FA","future":"#D4E3F8"},
-  "midnight_blue_oled": {"bg":"#000000","text":"#C6D0E0","muted":"#7E8CA3","dot":"#E2E9F5","past":"#E2E9F5","today":"#4DA3FF","number":"#EDF3FA","future":"#D4E3F8"},
-  "forest_green": {"bg":"#101815","text":"#C7D6CE","muted":"#7E9489","dot":"#E1EFE8","past":"#E1EFE8","today":"#2ED573","number":"#EDF7F1","future":"#E0F2E4"},
-  "forest_green_oled": {"bg":"#000000","text":"#C7D6CE","muted":"#7E9489","dot":"#E1EFE8","past":"#E1EFE8","today":"#2ED573","number":"#EDF7F1","future":"#E0F2E4"},
-  "sand_terracotta": {"bg":"#F3EFEA","text":"#4A3F35","muted":"#8E8175","dot":"#3A2F26","past":"#3A2F26","today":"#D2693C","number":"#2A2218","future":"#2A2218"},
-  "sand_terracotta_oled": {"bg":"#000000","text":"#4A3F35","muted":"#8E8175","dot":"#3A2F26","past":"#3A2F26","today":"#D2693C","number":"#f9f3eb","future":"#f9f3eb"},
-  "violet_focus": {"bg":"#14101C","text":"#D7CFF5","muted":"#8C84B2","dot":"#EEE9FF","past":"#EEE9FF","today":"#9B7CFF","number":"#F5F0FF","future":"#F5F0FF"},
-  "violet_focus_oled": {"bg":"#000000","text":"#D7CFF5","muted":"#8C84B2","dot":"#EEE9FF","past":"#EEE9FF","today":"#9B7CFF","number":"#F5F0FF","future":"#F5F0FF"},
-  "minimal_red": {"bg":"#141414","text":"#CFCFCF","muted":"#7C7C7C","dot":"#F0F0F0","past":"#F0F0F0","today":"#FF4D4D","number":"#FAFAFA","future":"#FAFAFA"},
-  "minimal_red_oled": {"bg":"#000000","text":"#CFCFCF","muted":"#7C7C7C","dot":"#F0F0F0","past":"#F0F0F0","today":"#FF4D4D","number":"#FAFAFA","future":"#FAFAFA"}
+  "graphite_orange": {"bg":"#151617","text":"#B8B8B8","muted":"#7A7A7A","dot":"#E6E6E6","past":"#E6E6E6","today":"#0A84FF","weekend":"#FF7A2F","number":"#D0D0D0","future":"#D0D0D0"},
+  "graphite_orange_oled": {"bg":"#000000","text":"#B8B8B8","muted":"#7A7A7A","dot":"#E6E6E6","past":"#E6E6E6","today":"#0A84FF","weekend":"#FF7A2F","number":"#D0D0D0","future":"#D0D0D0"},
+  "midnight_blue": {"bg":"#0F1720","text":"#C6D0E0","muted":"#7E8CA3","dot":"#E2E9F5","past":"#E2E9F5","today":"#FF9500","weekend":"#4DA3FF","number":"#EDF3FA","future":"#D4E3F8"},
+  "midnight_blue_oled": {"bg":"#000000","text":"#C6D0E0","muted":"#7E8CA3","dot":"#E2E9F5","past":"#E2E9F5","today":"#FF9500","weekend":"#4DA3FF","number":"#EDF3FA","future":"#D4E3F8"},
+  "forest_green": {"bg":"#101815","text":"#C7D6CE","muted":"#7E9489","dot":"#E1EFE8","past":"#E1EFE8","today":"#FF3B30","weekend":"#2ED573","number":"#EDF7F1","future":"#E0F2E4"},
+  "forest_green_oled": {"bg":"#000000","text":"#C7D6CE","muted":"#7E9489","dot":"#E1EFE8","past":"#E1EFE8","today":"#FF3B30","weekend":"#2ED573","number":"#EDF7F1","future":"#E0F2E4"},
+  "sand_terracotta": {"bg":"#F3EFEA","text":"#4A3F35","muted":"#8E8175","dot":"#3A2F26","past":"#3A2F26","today":"#007AFF","weekend":"#D2693C","number":"#2A2218","future":"#2A2218"},
+  "sand_terracotta_oled": {"bg":"#000000","text":"#4A3F35","muted":"#8E8175","dot":"#3A2F26","past":"#3A2F26","today":"#007AFF","weekend":"#D2693C","number":"#f9f3eb","future":"#f9f3eb"},
+  "violet_focus": {"bg":"#14101C","text":"#D7CFF5","muted":"#8C84B2","dot":"#EEE9FF","past":"#EEE9FF","today":"#FFD60A","weekend":"#9B7CFF","number":"#F5F0FF","future":"#F5F0FF"},
+  "violet_focus_oled": {"bg":"#000000","text":"#D7CFF5","muted":"#8C84B2","dot":"#EEE9FF","past":"#EEE9FF","today":"#FFD60A","weekend":"#9B7CFF","number":"#F5F0FF","future":"#F5F0FF"},
+  "minimal_red": {"bg":"#141414","text":"#CFCFCF","muted":"#7C7C7C","dot":"#F0F0F0","past":"#F0F0F0","today":"#32D74B","weekend":"#FF4D4D","number":"#FAFAFA","future":"#FAFAFA"},
+  "minimal_red_oled": {"bg":"#000000","text":"#CFCFCF","muted":"#7C7C7C","dot":"#F0F0F0","past":"#F0F0F0","today":"#32D74B","weekend":"#FF4D4D","number":"#FAFAFA","future":"#FAFAFA"}
 };

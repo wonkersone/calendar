@@ -20,6 +20,40 @@ const HOLIDAYS_2026 = [
   '2026-02-23', '2026-03-08', '2026-05-01', '2026-05-09', '2026-06-12', '2026-11-04'
 ];
 
+const quotesRu = [
+  "ДЕЛАЙ ТО, ЧТО ТЕБЯ ПУГАЕТ",
+  "СЕГОДНЯ - ЛУЧШИЙ ДЕНЬ",
+  "НАЧНИ С МАЛОГО",
+  "ВСЁ В ТВОИХ РУКАХ",
+  "СОЗДАВАЙ СЕБЯ САМ",
+  "ВРЕМЯ НЕ ЖДЁТ",
+  "ВЕРЬ В СВОИ СИЛЫ",
+  "НИКОГДА НЕ СДАВАЙСЯ",
+  "ДВИЖЕНИЕ - ЭТО ЖИЗНЬ",
+  "МЕЧТАЙ ПО-КРУПНОМУ",
+  "СДЕЛАЙ ШАГ ВПЕРЕД",
+  "ГРАНИЦ НЕ СУЩЕСТВУЕТ",
+  "ПОКАЖИ НА ЧТО ТЫ СПОСОБЕН",
+  "ЦЕНИ КАЖДОЕ МГНОВЕНИЕ",
+];
+
+const quotesEng = [
+  "DO WHAT SCARES YOU",
+  "TODAY IS THE DAY",
+  "START SMALL",
+  "IT'S IN YOUR HANDS",
+  "CREATE YOURSELF",
+  "TIME WAITS FOR NO ONE",
+  "BELIEVE IN YOURSELF",
+  "NEVER GIVE UP",
+  "MOVEMENT IS LIFE",
+  "DREAM BIG",
+  "TAKE A STEP FORWARD",
+  "BOUNDARIES DO NOT EXIST",
+  "SHOW WHAT YOU CAN DO",
+  "CHERISH EVERY MOMENT",
+];
+
 function isHoliday(date: Date, mode: string) {
   const dateStr = date.toISOString().split('T')[0];
   const dayOfWeek = date.getDay();
@@ -62,14 +96,12 @@ export function drawWallpaper(
   const currentMonth = localDate.getMonth();
   const currentDay = localDate.getDate();
 
-  const isLarge = settings.calendar_size.startsWith('large');
+  const isNumbersOnly = settings.style === 'numbers_current_month';
+  const isLarge = isNumbersOnly ? settings.calendar_size.startsWith('large') : true;
   const padding = width * 0.08;
   const usableWidth = width - padding * 2;
   
   let startY = height * 0.30;
-  if (settings.calendar_size === 'large_no_top') startY = height * 0.15;
-  else if (settings.calendar_size === 'large_no_bottom') startY = height * 0.45;
-  else if (settings.calendar_size === 'standard') startY = height * 0.4;
   
   const headerFontSize = isLarge ? width * 0.08 : width * 0.06;
   const yearFontSize = isLarge ? width * 0.05 : width * 0.04;
@@ -100,8 +132,12 @@ export function drawWallpaper(
     let startDayOfWeek = firstDay.getDay() - 1;
     if (startDayOfWeek === -1) startDayOfWeek = 6;
     
-    const cellW = usableWidth / 7;
-    const cellH = isLarge ? cellW * 1.1 : cellW;
+    const scale = isLarge ? 1 : 0.7;
+    const gridUsableWidth = usableWidth * scale;
+    const gridPaddingX = padding + (usableWidth - gridUsableWidth) / 2;
+    
+    const cellW = gridUsableWidth / 7;
+    const cellH = isLarge ? cellW * 1.1 : cellW * 1.3;
     
     const dayHeaders = settings.lang === 'ru' ? ['ПН', 'ВТ', 'СР', 'ЧТ', 'ПТ', 'СБ', 'ВС'] : ['MO', 'TU', 'WE', 'TH', 'FR', 'SA', 'SU'];
     ctx.font = `600 ${cellW * 0.25}px system-ui, -apple-system, sans-serif`;
@@ -109,7 +145,7 @@ export function drawWallpaper(
     
     dayHeaders.forEach((h, i) => {
       ctx.fillStyle = theme.muted;
-      ctx.fillText(h, padding + (i * cellW) + (cellW / 2), startY + cellH * 0.8);
+      ctx.fillText(h, gridPaddingX + (i * cellW) + (cellW / 2), startY + cellH * 0.8);
     });
     
     let d = 1;
@@ -119,7 +155,7 @@ export function drawWallpaper(
       for (let col = 0; col < 7; col++) {
         const idx = row * 7 + col;
         if (idx >= startDayOfWeek && d <= daysInMonth) {
-          const x = padding + (col * cellW) + (cellW / 2);
+          const x = gridPaddingX + (col * cellW) + (cellW / 2);
           const y = gridTop + (row * cellH) + (cellH / 2);
           
           const isToday = (d === currentDay);
@@ -130,7 +166,7 @@ export function drawWallpaper(
           let color = theme.number;
           if (isPast) color = theme.past;
           if (isToday) color = theme.today;
-          else if (isHoli) color = theme.accent || theme.today;
+          else if (isHoli) color = theme.weekend;
           
           const size = cellW * 0.8;
           ctx.fillStyle = color;
@@ -167,7 +203,7 @@ export function drawWallpaper(
       let dotColor = theme.future;
       if (p < daysPassed) dotColor = theme.past;
       if (p === daysPassed) dotColor = theme.today;
-      else if (isHolid) dotColor = theme.accent || theme.today;
+      else if (isHolid) dotColor = theme.weekend;
 
       ctx.fillStyle = dotColor;
       ctx.beginPath();
@@ -222,7 +258,7 @@ export function drawWallpaper(
             let color = theme.future;
             if (isPast) color = theme.past;
             if (isToday) color = theme.today;
-            else if (isHolid) color = theme.accent || theme.today;
+            else if (isHolid) color = theme.weekend;
 
             ctx.fillStyle = color;
 
@@ -261,16 +297,24 @@ export function drawWallpaper(
     const daysPassed = Math.floor(elapsedMs / (1000 * 60 * 60 * 24));
     const daysLeft = totalDays - daysPassed;
 
-    let footerText = '';
-    
+    let footerTextTop = '';
+    let footerTextBottom = '';
+    let showBar = false;
+
     if (settings.footer === 'days_left') {
-      footerText = settings.lang === 'ru' ? `ОСТАЛОСЬ ${daysLeft} ДНЕЙ` : `${daysLeft} DAYS LEFT`;
+      footerTextTop = settings.lang === 'ru' ? `ОСТАЛОСЬ ${daysLeft} ДНЕЙ` : `${daysLeft} DAYS LEFT`;
+      showBar = true;
     } else if (settings.footer === 'days_left_percent_left') {
-      footerText = settings.lang === 'ru' ? `ОСТАЛОСЬ ${daysLeft} ДНЕЙ • ${Math.max(0, 100 - progressPercent).toFixed(1)}%` : `${daysLeft} DAYS LEFT • ${Math.max(0, 100 - progressPercent).toFixed(1)}%`;
+      footerTextTop = settings.lang === 'ru' ? `ОСТАЛОСЬ ${daysLeft} ДНЕЙ` : `${daysLeft} DAYS LEFT`;
+      footerTextBottom = `${Math.max(0, 100 - progressPercent).toFixed(1)}%`;
+      showBar = true;
     } else if (settings.footer === 'days_left_percent_done') {
-      footerText = settings.lang === 'ru' ? `ОСТАЛОСЬ ${daysLeft} ДНЕЙ • ГОД ПРОШЕЛ НА ${progressPercent.toFixed(1)}%` : `${daysLeft} DAYS LEFT • ${progressPercent.toFixed(1)}% DONE`;
+      footerTextTop = settings.lang === 'ru' ? `ОСТАЛОСЬ ${daysLeft} ДНЕЙ` : `${daysLeft} DAYS LEFT`;
+      footerTextBottom = settings.lang === 'ru' ? `ГОД ПРОШЕЛ НА ${progressPercent.toFixed(1)}%` : `${progressPercent.toFixed(1)}% DONE`;
+      showBar = true;
     } else if (settings.footer === 'quote') {
-      footerText = settings.lang === 'ru' ? 'СДЕЛАЙ ЧТО-НИБУДЬ СЕГОДНЯ' : 'DO SOMETHING TODAY';
+      const quoteIndex = daysPassed % quotesRu.length;
+      footerTextTop = settings.lang === 'ru' ? quotesRu[quoteIndex] : quotesEng[quoteIndex];
     }
 
     ctx.textAlign = 'center';
@@ -278,13 +322,13 @@ export function drawWallpaper(
     ctx.font = `500 ${width * 0.035}px system-ui, -apple-system, sans-serif`;
     
     const footerY = height * 0.85; // Higher position for iPhone compatibility
-    ctx.fillText(footerText, width / 2, footerY);
+    ctx.fillText(footerTextTop, width / 2, footerY);
 
-    if (settings.footer !== 'quote') {
+    if (showBar) {
       const barW = width * 0.6;
       const barH = width * 0.008;
       const barX = (width - barW) / 2;
-      const barY = footerY + width * 0.04;
+      const barY = footerY + width * 0.03;
 
       ctx.fillStyle = theme.dot;
       drawRoundedRect(ctx, barX, barY, barW, barH, barH/2);
@@ -293,6 +337,12 @@ export function drawWallpaper(
       ctx.fillStyle = theme.today;
       drawRoundedRect(ctx, barX, barY, barW * (progressPercent / 100), barH, barH/2);
       ctx.fill();
+      
+      if (footerTextBottom) {
+        ctx.fillStyle = theme.muted;
+        ctx.font = `500 ${width * 0.025}px system-ui, -apple-system, sans-serif`;
+        ctx.fillText(footerTextBottom, width / 2, barY + barH + width * 0.035);
+      }
     }
   }
 }
