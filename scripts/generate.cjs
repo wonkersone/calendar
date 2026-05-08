@@ -11,7 +11,7 @@ const SETTINGS = {
   calendar_size: 'standard',
   weekend_mode: 'weekends_only',
   opacity: 0,
-  theme: 'graphite_orange',
+  theme: 'forest_green',
   lang: 'ru',
   timezone: 3,
   footer: 'days_left_percent_left'
