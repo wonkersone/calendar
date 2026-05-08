@@ -8,7 +8,7 @@ const path = require('path');
 const SETTINGS = {
   model: 'iphone_15_pro', 
   style: 'dots',
-  calendar_size: 'standard',
+  calendar_size: 'large',
   weekend_mode: 'weekends_only',
   opacity: 0,
   theme: 'graphite_orange',
