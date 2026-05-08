@@ -72,9 +72,8 @@ export default function App() {
   };
 
   const getAutomationUrl = () => {
-    const baseUrl = window.location.origin + window.location.pathname;
+    const baseUrl = window.location.origin + '/api/wallpaper';
     const params = new URLSearchParams();
-    params.set('auto', 'true');
     params.set('model', settings.model);
     params.set('style', settings.style);
     params.set('calendar_size', settings.calendar_size);
@@ -84,6 +83,11 @@ export default function App() {
     params.set('lang', settings.lang);
     params.set('timezone', settings.timezone.toString());
     params.set('footer', settings.footer);
+    
+    const device = DEVICES[settings.model] || DEVICES.iphone_15_pro;
+    params.set('width', device.width.toString());
+    params.set('height', device.height.toString());
+    
     return `${baseUrl}?${params.toString()}`;
   };
 

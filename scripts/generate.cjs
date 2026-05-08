@@ -9,9 +9,9 @@ const SETTINGS = {
   model: 'iphone_15_pro', 
   style: 'dots',
   calendar_size: 'standard',
-  weekend_mode: 'production_calendar',
+  weekend_mode: 'weekends_only',
   opacity: 0,
-  theme: 'violet_focus',
+  theme: 'graphite_orange',
   lang: 'ru',
   timezone: 3,
   footer: 'days_left_percent_left'
