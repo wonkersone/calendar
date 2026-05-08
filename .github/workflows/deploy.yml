@@ -37,7 +37,7 @@ jobs:
         run: |
           npx serve -s dist -l 3000 & 
           sleep 3
-          node scripts/generate.js
+          node scripts/generate.cjs
       - name: Setup Pages
         uses: actions/configure-pages@v4
       - name: Upload artifact
