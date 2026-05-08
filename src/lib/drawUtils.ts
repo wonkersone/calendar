@@ -68,11 +68,11 @@ export function drawWallpaper(
   ctx.textAlign = 'left';
   ctx.fillStyle = theme.text;
   ctx.font = `800 ${headerFontSize}px system-ui, -apple-system, sans-serif`;
-  ctx.fillText(monthStr, padding, startY - headerFontSize);
+  ctx.fillText(monthStr, padding, startY - headerFontSize * 0.7);
   
   ctx.font = `600 ${yearFontSize}px system-ui, -apple-system, sans-serif`;
   ctx.fillStyle = theme.muted;
-  ctx.fillText(year.toString(), padding, startY - headerFontSize + yearFontSize * 1.5);
+  ctx.fillText(year.toString(), padding, startY - headerFontSize * 0.7 + yearFontSize * 1.5);
 
   if (settings.style === 'dots_15_progress') {
     const cols = 15;
@@ -118,7 +118,7 @@ export function drawWallpaper(
     
     dayHeaders.forEach((h, i) => {
       ctx.fillStyle = theme.muted;
-      ctx.fillText(h, padding + (i * cellW) + (cellW / 2), startY + cellH * 0.5);
+      ctx.fillText(h, padding + (i * cellW) + (cellW / 2), startY + cellH * 0.8);
     });
     
     let d = 1;
@@ -200,7 +200,7 @@ export function drawWallpaper(
     ctx.fillStyle = theme.muted;
     ctx.font = `500 ${width * 0.035}px system-ui, -apple-system, sans-serif`;
     
-    const footerY = height * 0.88;
+    const footerY = height * 0.8;
     ctx.fillText(footerText, width / 2, footerY);
 
     if (settings.footer !== 'quote') {
