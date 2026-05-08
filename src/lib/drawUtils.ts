@@ -178,15 +178,18 @@ export function drawWallpaper(
     // 12 MONTH GRID FOR ALL OTHER STYLES
     const monthCols = 3;
     const monthGapX = usableWidth * 0.08;
-    const monthGapY = height * 0.04;
+    const monthGapY = height * 0.03; // Reduced gap to fit everything
     const monthWidth = (usableWidth - (monthGapX * (monthCols - 1))) / monthCols;
+    
+    // Tighten the grid to ensure it doesn't overlap footer
+    const gridCellH = (monthWidth / 7) * 0.75; // Slightly tighter vertical spacing
     
     for (let m = 0; m < 12; m++) {
       const mCol = m % monthCols;
       const mRow = Math.floor(m / monthCols);
       
       const mX = padding + mCol * (monthWidth + monthGapX);
-      const mY = startY + mRow * (monthWidth * 0.8 + monthGapY);
+      const mY = startY + mRow * (monthWidth * 0.9 + monthGapY); // Adjusted row spacing
       
       // Month Name
       ctx.textAlign = 'left';
@@ -199,9 +202,9 @@ export function drawWallpaper(
       let startDayOfWeek = firstDay.getDay() - 1;
       if (startDayOfWeek === -1) startDayOfWeek = 6;
       
-      const gridStartY = mY + width * 0.035;
+      const gridStartY = mY + width * 0.025;
       const cellW = monthWidth / 7;
-      const cellH = cellW * 0.9; // Balanced vertical spacing for 12-month grid
+      const cellH = gridCellH;
       
       let d = 1;
       for (let row = 0; row < 6; row++) {
@@ -274,7 +277,7 @@ export function drawWallpaper(
     ctx.fillStyle = theme.muted;
     ctx.font = `500 ${width * 0.035}px system-ui, -apple-system, sans-serif`;
     
-    const footerY = height * 0.78; // Higher position for iPhone compatibility
+    const footerY = height * 0.85; // Higher position for iPhone compatibility
     ctx.fillText(footerText, width / 2, footerY);
 
     if (settings.footer !== 'quote') {
