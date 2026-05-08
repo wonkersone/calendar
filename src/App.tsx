@@ -294,16 +294,6 @@ export default function App() {
                   height={device.height} 
                   className="w-full h-auto object-contain block"
                 />
-                
-                {/* Simulated lockscreen elements */}
-                <div className="absolute inset-0 pointer-events-none">
-                  {settings.calendar_size !== 'large_no_top' && (
-                    <div className="absolute top-[23%] left-[10%] right-[10%] h-[7%] rounded-[20px] bg-[rgba(255,255,255,.04)] border border-[rgba(255,255,255,.08)] shadow-[0_10px_30px_rgba(0,0,0,.35)] backdrop-blur-md"></div>
-                  )}
-                  {settings.calendar_size !== 'large_no_bottom' && (
-                    <div className="absolute bottom-[14%] left-[10%] right-[10%] h-[7%] rounded-[20px] bg-[rgba(255,255,255,.04)] border border-[rgba(255,255,255,.08)] shadow-[0_10px_30px_rgba(0,0,0,.35)] backdrop-blur-md"></div>
-                  )}
-                </div>
               </div>
             </div>
             
