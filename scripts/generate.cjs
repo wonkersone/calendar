@@ -9,7 +9,7 @@ const SETTINGS = {
   model: 'iphone_15_pro', 
   style: 'dots',
   calendar_size: 'standard',
-  weekend_mode: 'weekends_only',
+  weekend_mode: 'production_calendar',
   opacity: 0,
   theme: 'violet_focus',
   lang: 'ru',
