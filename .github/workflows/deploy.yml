@@ -3,6 +3,8 @@ name: Deploy static content to Pages
 on:
   push:
     branches: ['main']
+  schedule:
+    - cron: '1 0 * * *' # Автоматически запускать каждый день в 00:01 (по UTC)
   workflow_dispatch:
 
 permissions:
@@ -31,6 +33,11 @@ jobs:
         run: npm install
       - name: Build
         run: npm run build
+      - name: Generate Daily Wallpaper (Puppeteer)
+        run: |
+          npx serve -s dist -l 3000 & 
+          sleep 3
+          node scripts/generate.js
       - name: Setup Pages
         uses: actions/configure-pages@v4
       - name: Upload artifact
