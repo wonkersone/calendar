@@ -66,7 +66,7 @@ export function drawWallpaper(
   const padding = width * 0.08;
   const usableWidth = width - padding * 2;
   
-  let startY = height * 0.28;
+  let startY = height * 0.30;
   if (settings.calendar_size === 'large_no_top') startY = height * 0.15;
   else if (settings.calendar_size === 'large_no_bottom') startY = height * 0.45;
   else if (settings.calendar_size === 'standard') startY = height * 0.4;
